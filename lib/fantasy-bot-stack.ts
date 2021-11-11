@@ -2,6 +2,7 @@ import events = require("@aws-cdk/aws-events");
 import targets = require("@aws-cdk/aws-events-targets");
 import lambda = require("@aws-cdk/aws-lambda");
 import cdk = require("@aws-cdk/core");
+require("dotenv").config();
 
 export class FantasyBotStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -15,6 +16,9 @@ export class FantasyBotStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(300),
       runtime: lambda.Runtime.NODEJS_12_X,
       functionName: "FantasyBot",
+      environment: {
+        GM_BOT_ID: process.env.GM_BOT_ID || "",
+      },
     });
 
     const rule = new events.Rule(this, "FantasyCron", {
