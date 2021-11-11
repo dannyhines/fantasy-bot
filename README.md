@@ -1,8 +1,8 @@
-# Welcome to your CDK TypeScript project!
+# Fantasy Football Bot
 
-This is a blank project for TypeScript development with CDK.
+A cron job that triggers a lambda to send fantasy football updates via GroupMe.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+This is a python lambda function that hits the ESPN fantasy football API to request updates before sending messages using the GroupMe API. Infrastructure lives in AWS and is defined/deployed using AWS CDK.
 
 ## Useful commands
 

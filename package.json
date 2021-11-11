@@ -1,6 +1,9 @@
 {
   "name": "fantasy-bot",
   "version": "0.1.0",
+  "author": {
+    "name": "Danny Hines"
+  },
   "bin": {
     "fantasy-bot": "bin/fantasy-bot.js"
   },
@@ -21,7 +24,9 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.100.0",
-    "source-map-support": "^0.5.16"
+    "@aws-cdk/aws-events": "1.100.0",
+    "@aws-cdk/aws-events-targets": "1.100.0",
+    "@aws-cdk/aws-lambda": "1.100.0",
+    "@aws-cdk/core": "1.100.0"
   }
 }
