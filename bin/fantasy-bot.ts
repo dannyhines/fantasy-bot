@@ -6,8 +6,7 @@ import { FantasyBotStack } from "../lib/fantasy-bot-stack";
 const app = new cdk.App();
 new FantasyBotStack(app, "FantasyBotStack", {
   env: {
-    // account: process.env.CDK_DEFAULT_ACCOUNT,
-    account: "214094364511",
+    account: process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEFAULT_REGION,
   },
   // env: { account: '123456789012', region: 'us-east-1' },
