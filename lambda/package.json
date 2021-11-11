@@ -1,0 +1,13 @@
+{
+    "name": "fantasy-bot-lambda",
+    "version": "1.0.0",
+    "devDependencies": {
+        "@types/node": "^16.11.7",
+        "@types/node-fetch": "^3.0.3"
+    },
+    "author": "Danny Hines",
+    "license": "ISC",
+    "dependencies": {
+        "node-fetch": "^2.0.0"
+    }
+}
