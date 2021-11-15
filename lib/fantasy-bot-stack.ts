@@ -18,6 +18,7 @@ export class FantasyBotStack extends cdk.Stack {
       functionName: "FantasyBot",
       environment: {
         GM_BOT_ID: process.env.GM_BOT_ID || "",
+        FF_LEAGUE_ID: process.env.FF_LEAGUE_ID || "",
       },
     });
 

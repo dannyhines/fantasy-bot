@@ -9,7 +9,6 @@
     "author": "Danny Hines",
     "license": "ISC",
     "dependencies": {
-        "espn-fantasy-football-api": "^0.16.1",
         "node-fetch": "^2.0.0"
     }
 }
