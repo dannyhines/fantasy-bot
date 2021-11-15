@@ -1,7 +1,17 @@
+// Scoreboard is what's generated after filtering/mapping
+export interface Scoreboard {
+  homeScore: number;
+  awayScore: number;
+  homeName: string;
+  awayName: string;
+}
+
+//  ----- Below here is what's returned from the API --- //
+
 export interface BoxscoreResponse {
   gameId: number;
   id: number;
-  schedule: Schedule[];
+  schedule: Matchup[];
   scoringPeriodId: number;
   seasonId: number;
   segmentId: number;
@@ -10,20 +20,19 @@ export interface BoxscoreResponse {
   teams: Team[];
 }
 
-export interface Schedule {
-  away: ScheduleAway;
-  home: ScheduleAway;
+export interface Matchup {
+  away: MatchupObj;
+  home: MatchupObj;
   id: number;
   matchupPeriodId: number;
   winner: Winner;
 }
 
-export interface ScheduleAway {
-  adjustment: number;
-  pointsByScoringPeriod?: { [key: string]: number };
+export interface MatchupObj {
   teamId: number;
   totalPoints: number;
   totalPointsLive?: number;
+  totalProjectedPointsLive?: number;
 }
 
 export enum Winner {
