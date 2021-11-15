@@ -26,8 +26,8 @@ export class FantasyBotStack extends cdk.Stack {
       // 10:30 CST on Tuesdays
       schedule: events.Schedule.cron({
         minute: "30",
-        hour: "15",
-        weekDay: "2",
+        hour: "16",
+        weekDay: "3",
       }),
     });
 
