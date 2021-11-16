@@ -6,7 +6,8 @@ const getSummaryText = (weekNum: number, summary: Scoreboard[], status: WEEK_STA
   summary.forEach((game) => {
     summaryText += status === "LIVE" ? gameTextInProgress(game) : gameTextLastWeek(game);
   });
-  return `${squiglies}\n${titleText(weekNum, status)}\n${squiglies}${summaryText}`;
+  const otherText = status === "JUST FINISHED" ? loserOfTheWeekText(summary) : "";
+  return `${squiglies}\n${titleText(weekNum, status)}\n${squiglies}${summaryText}${otherText}`;
 };
 
 const gameTextInProgress = (game: Scoreboard) => {
@@ -95,5 +96,23 @@ const getVsText = (game: Scoreboard) => {
       return "beat";
   }
   return "vs.";
+};
+
+const loserOfTheWeekText = (summary: Scoreboard[]) => {
+  let personName,
+    teamName = "";
+  let points = 200;
+  summary.forEach((game) => {
+    if (game.awayScore > game.homeScore && game.homeScore < points) {
+      personName = game.homeFirstName + " " + game.homeLastName;
+      teamName = game.homeName;
+      points = game.homeScore;
+    } else if (game.homeScore > game.awayScore && game.awayScore < points) {
+      personName = game.awayFirstName + " " + game.awayLastName;
+      teamName = game.awayName;
+      points = game.awayScore;
+    }
+  });
+  return `\nAnd the BIG DUMB IDIOT OF THE WEEK is ${personName}, who only scored ${points} points`;
 };
 export default getSummaryText;
