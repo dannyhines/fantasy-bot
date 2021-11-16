@@ -6,15 +6,15 @@ import getCurrentWeek from "./src/getCurrentWeek";
 
 export const handler = async (event: any = {}): Promise<any> => {
   try {
-    const { seasonId, currentWeek, finalWeek } = await getCurrentWeek();
+    const { seasonId, currentWeek, status } = await getCurrentWeek();
 
-    if (currentWeek > finalWeek) {
+    if (status === "SEASON OVER") {
       return { statusCode: 200, body: "The season is over :(" };
     }
 
     const scores = await getBoxscores(seasonId, currentWeek);
-    const summaryText = getSummaryText(currentWeek, scores);
-
+    const summaryText = getSummaryText(currentWeek, scores, status);
+    // console.log(summaryText);
     await sendGroupmeMsg(summaryText);
 
     return { statusCode: 200, body: "It worked!" };

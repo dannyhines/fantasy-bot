@@ -4,7 +4,12 @@ export interface Scoreboard {
   awayScore: number;
   homeName: string;
   awayName: string;
+  homeFirstName: string;
+  awayFirstName: string;
+  homeLastName: string;
+  awayLastName: string;
 }
+export type WEEK_STATUS = "LIVE" | "UPCOMING" | "JUST FINISHED" | "SEASON OVER";
 
 //  ----- Below here is what's returned from the API --- //
 
@@ -65,6 +70,7 @@ export interface Team {
   location: string;
   nickname: string;
   primaryOwner: string; // matches Member.id
+  owners: string[];
 
   record: Record;
   currentProjectedRank: number;

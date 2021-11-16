@@ -15,11 +15,17 @@ const getBoxscores = async (seasonId: number, scoringPeriodId: number) => {
       .map((score: Matchup) => {
         let home = data.teams.find((x) => x.id === score.home.teamId);
         let away = data.teams.find((x) => x.id === score.away.teamId);
+        let homeMember = data.members.find((member) => home?.owners.findIndex((owner) => owner === member.id) != -1)!;
+        let awayMember = data.members.find((member) => away?.owners.findIndex((owner) => owner === member.id) != -1)!;
         return {
           homeScore: score.home.totalProjectedPointsLive || score.home.totalPoints,
           awayScore: score.away.totalProjectedPointsLive || score.away.totalPoints,
           homeName: home!.location + " " + home!.nickname,
           awayName: away!.location + " " + away!.nickname,
+          homeFirstName: homeMember.firstName,
+          awayFirstName: awayMember.firstName,
+          homeLastName: homeMember.lastName,
+          awayLastName: awayMember.lastName,
         };
       });
 
