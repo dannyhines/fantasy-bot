@@ -4,7 +4,7 @@ import getSummaryText from "./src/getSummaryText";
 import sendGroupmeMsg from "./src/sendGroupmeMsg";
 import getCurrentWeek from "./src/getCurrentWeek";
 
-const TRIGGER_PHRASE = "update";
+const TRIGGER_PHRASE = "trigger update";
 
 export const handler = async (event: any = {}): Promise<any> => {
   try {
@@ -12,6 +12,7 @@ export const handler = async (event: any = {}): Promise<any> => {
 
     // Callback is called, but trigger word isn't mentioned
     if (ignoreCallbackEvent(event)) {
+      console.log(`ignoring the message "${JSON.parse(event.body).text}""`);
       return successResponse("Callback succeeded but didn't do anything");
     }
 
@@ -43,7 +44,7 @@ const ignoreCallbackEvent = (event: any) => {
     event.headers["User-Agent"] &&
     event.headers["User-Agent"].includes("GroupMeBotNotifier") &&
     JSON.parse(event.body).text &&
-    !JSON.parse(event.body).text.includes(TRIGGER_PHRASE)
+    !JSON.parse(event.body).text.toLowerCase().includes(TRIGGER_PHRASE)
   );
 };
 
