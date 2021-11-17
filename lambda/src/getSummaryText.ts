@@ -4,10 +4,23 @@ const squiglies = "~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 const getSummaryText = (weekNum: number, summary: Scoreboard[], status: WEEK_STATUS) => {
   let summaryText = "";
   summary.forEach((game) => {
-    summaryText += status === "LIVE" ? gameTextInProgress(game) : gameTextLastWeek(game);
+    summaryText +=
+      status === "JUST FINISHED"
+        ? gameTextLastWeek(game)
+        : status === "LIVE"
+        ? gameTextInProgress(game)
+        : gameTextProjections(game);
   });
   const otherText = status === "JUST FINISHED" ? loserOfTheWeekText(summary) : "";
   return `${squiglies}\n${titleText(weekNum, status)}\n${squiglies}${summaryText}${otherText}`;
+};
+
+const gameTextProjections = (game: Scoreboard) => {
+  const { homeName, homeScore, awayName, awayScore } = game;
+  const home = `${homeName} (${homeScore.toFixed(1)})`;
+  const away = `${awayName} (${awayScore.toFixed(1)})`;
+  return `\n${away}\n${getProjectedVsText(game)}\n${home}\n`;
+  //   return `\n${awayLastName} ${getProjectedVsText(game)} ${homeLastName} ${score}\n${squiglies}`;
 };
 
 const gameTextInProgress = (game: Scoreboard) => {
@@ -16,22 +29,21 @@ const gameTextInProgress = (game: Scoreboard) => {
   const away = `${awayName} (${awayScore.toFixed(1)})`;
   let winningTeam = homeScore > awayScore ? home : away;
   let losingTeam = homeScore > awayScore ? away : home;
-  return `\n${winningTeam}\n${getInProgressVsText(game)}\n${losingTeam}\n${squiglies}`;
+  return `\n${winningTeam}\n${getInProgressVsText(game)}\n${losingTeam}\n`;
 };
 
 const gameTextLastWeek = (game: Scoreboard) => {
   const { homeLastName, homeScore, awayLastName, awayScore } = game;
   const score = `${awayScore.toFixed(1)}-${homeScore.toFixed(1)}`;
-  return `\n${awayLastName} ${getVsText(game)} ${homeLastName} ${score}\n${squiglies}`;
+  return `\n${awayLastName} ${getLastWeekVsText(game)} ${homeLastName} ${score}\n`;
 };
 
-// const contentSummary = (summary: Scoreboard[], )
 const titleText = (weekNum: number, status: WEEK_STATUS) => {
   switch (status) {
     case "LIVE":
       return `~~~~ Week ${weekNum} score update ~~~~`;
     case "UPCOMING":
-      return `~~~ Projections for week ${weekNum} ~~~`;
+      return `~~~~~ Week ${weekNum} Projections ~~~~~`;
     case "JUST FINISHED":
       return `~~~~~ Week ${weekNum} Summary ~~~~~`;
     default:
@@ -39,21 +51,25 @@ const titleText = (weekNum: number, status: WEEK_STATUS) => {
   }
 };
 
-const getLastWeekVsText = (game: Scoreboard) => {
-  let diff = Math.abs(game.awayScore - game.homeScore);
+const getProjectedVsText = (game: Scoreboard) => {
+  let diff = game.awayScore - game.homeScore;
   switch (true) {
+    case Math.abs(diff) < 3:
+      return "has a close one against";
+    case diff < -25:
+      return "is not looking good against";
+    case diff < -11:
+      return "will probably lose to";
+    case diff < 0:
+      return "is projected to lose to";
     case diff > 25:
-      return "kicked the shit out of";
-    case diff > 12:
-      return "easily beat";
-    case diff > 4:
-      return "got the win over";
-    case diff > 1.5:
-      return "narrowly beat";
+      return "is going to curb stomp";
+    case diff > 11:
+      return "will probably beat";
     case diff > 0:
-      return "very narrowly beat";
+      return "is expected to beat";
   }
-  return "beat";
+  return "vs.";
 };
 
 // Used with winningTeam [vsText] losingTeam
@@ -73,7 +89,7 @@ const getInProgressVsText = (game: Scoreboard) => {
 };
 
 // Used with homeTeam [vsText] awayTeam
-const getVsText = (game: Scoreboard) => {
+const getLastWeekVsText = (game: Scoreboard) => {
   let diff = game.awayScore - game.homeScore;
   switch (true) {
     case diff > 0 && diff < 1.5:

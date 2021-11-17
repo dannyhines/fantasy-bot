@@ -4,7 +4,7 @@ const leagueId = process.env.FF_LEAGUE_ID;
 
 // Returns the current year (seasonId) and week (scoring period)
 const getCurrentWeek = async () => {
-  const URL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mLiveScoring`;
+  const URL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mScoreboard`;
   try {
     const response = await fetch(URL);
     const data: CurrentWeekResponse = await response.json();
@@ -27,7 +27,7 @@ function getStatusForData(data: CurrentWeekResponse): WEEK_STATUS {
   if (new Date())
     if (scoringPeriodId > status.finalScoringPeriod) {
       return "SEASON OVER";
-    } else if (!!matchup.home.totalProjectedPointsLive) {
+    } else if (!!matchup.home.totalPointsLive && matchup.home.totalPointsLive > 0) {
       return "LIVE";
     }
   return "UPCOMING";
