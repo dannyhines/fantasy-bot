@@ -9,7 +9,7 @@ const sendGroupmeMsg = async (text: string) => {
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Message sent w/ status code ", response.status);
+    console.log("Message sent w/ status code", response.status);
   } catch (err) {
     throw Error("(in sendGroupmeMsg()):" + err);
   }

@@ -25,6 +25,7 @@
     "dotenv": "^10.0.0"
   },
   "dependencies": {
+    "@aws-cdk/aws-apigateway": "1.100.0",
     "@aws-cdk/aws-events": "1.100.0",
     "@aws-cdk/aws-events-targets": "1.100.0",
     "@aws-cdk/aws-lambda": "1.100.0",
