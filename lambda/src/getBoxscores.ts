@@ -1,10 +1,11 @@
-import { BoxscoreResponse, Matchup, Scoreboard } from "./types";
+import { BoxscoreResponse, Matchup, MatchupObj, Scoreboard } from "./types";
 const fetch = require("node-fetch");
 const leagueId = process.env.FF_LEAGUE_ID;
 
 const getBoxscores = async (seasonId: number, scoringPeriodId: number) => {
   const BASE_URL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${seasonId}/`;
-  const scoresUrl = BASE_URL + `segments/0/leagues/${leagueId}?view=mMatchupScore&view=mTeam&view=mScoreboard`;
+  const scoresUrl =
+    BASE_URL + `segments/0/leagues/${leagueId}?view=mMatchupScore&view=mTeam&view=mScoreboard&view=mRoster`;
 
   try {
     const response = await fetch(scoresUrl);
@@ -26,6 +27,8 @@ const getBoxscores = async (seasonId: number, scoringPeriodId: number) => {
           awayFirstName: awayMember.firstName,
           homeLastName: homeMember.lastName,
           awayLastName: awayMember.lastName,
+          homeRoster: rosterForMatchup(score.home),
+          awayRoster: rosterForMatchup(score.away),
         };
       });
 
@@ -35,4 +38,19 @@ const getBoxscores = async (seasonId: number, scoringPeriodId: number) => {
   }
 };
 
+const rosterForMatchup = (matchup: MatchupObj) => {
+  if (!matchup.rosterForCurrentScoringPeriod || !matchup.rosterForCurrentScoringPeriod.entries) {
+    return [];
+  } else {
+    return matchup.rosterForCurrentScoringPeriod.entries.map((x) => {
+      const slot = x.lineupSlotId;
+      return {
+        name: x.playerPoolEntry.player.fullName,
+        projectedPoints: x.playerPoolEntry.player.stats[0].appliedTotal,
+        points: x.playerPoolEntry.appliedStatTotal,
+        starting: slot < 9 || slot == 17 || slot == 16,
+      };
+    });
+  }
+};
 export default getBoxscores;
