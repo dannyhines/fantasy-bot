@@ -8,8 +8,17 @@ export interface Scoreboard {
   awayFirstName: string;
   homeLastName: string;
   awayLastName: string;
+  homeRoster: Player[];
+  awayRoster: Player[];
 }
 export type WEEK_STATUS = "LIVE" | "UPCOMING" | "JUST FINISHED" | "SEASON OVER";
+
+export interface Player {
+  name: string;
+  projectedPoints: number;
+  points: number;
+  starting: boolean;
+}
 
 //  ----- Below here is what's returned from the API --- //
 
@@ -38,6 +47,19 @@ export interface MatchupObj {
   totalPoints: number;
   totalPointsLive?: number;
   totalProjectedPointsLive?: number;
+  rosterForCurrentScoringPeriod: { lineupSlotId: number; entries: PlayerEntry[] };
+}
+
+export interface PlayerEntry {
+  injuryStatus: string;
+  lineupSlotId: number;
+  playerPoolEntry: PlayerPoolEntry;
+}
+
+export interface PlayerPoolEntry {
+  onTeamId: number;
+  appliedStatTotal: number; // current score (I think)
+  player: { fullName: string; stats: [{ appliedTotal: number }] };
 }
 
 export enum Winner {
