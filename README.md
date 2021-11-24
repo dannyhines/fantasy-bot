@@ -1,6 +1,6 @@
 # Fantasy Football Bot
 
-A cron job that triggers a lambda to send fantasy football updates via GroupMe.
+A lambda function that (a) sends fantasy football updates via GroupMe on a Cron job and (b) sends alerts when the trigger phrase (`!update` or `!injury report`) is sent in the group.
 
 This is a Typescript lambda function that hits the ESPN fantasy football API to request updates before sending messages using the GroupMe API. Infrastructure lives in AWS and is defined/deployed using AWS CDK.
 
@@ -31,7 +31,7 @@ npm install      // download cdk's dependencies
 npm run build
 ```
 
-This will download npm modules for both the infrastructure and the lambda itself, and compile the typescript to javascript.
+This will download npm modules for both the infrastructure and the lambda code itself, and compile the typescript to javascript.
 
 ## Making Changes
 
