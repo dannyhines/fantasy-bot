@@ -1,0 +1,11 @@
+{
+  "resource": "/callback",
+  "path": "/callback",
+  "httpMethod": "GET",
+  "headers": {
+    "Accept": "application/json",
+    "User-Agent": "GroupMeBotNotifier"
+  },
+  "body": "{ \"text\": \"!update\" }",
+  "isBase64Encoded": false
+}

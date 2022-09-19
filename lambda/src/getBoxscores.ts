@@ -46,7 +46,7 @@ const rosterForMatchup = (matchup: MatchupObj) => {
       const slot = x.lineupSlotId;
       return {
         name: x.playerPoolEntry.player.fullName,
-        projectedPoints: x.playerPoolEntry.player.stats[0].appliedTotal,
+        projectedPoints: x.playerPoolEntry.player.stats[0].appliedTotal || -1,
         points: x.playerPoolEntry.appliedStatTotal,
         starting: slot < 9 || slot == 17 || slot == 16,
       };

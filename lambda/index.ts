@@ -16,6 +16,7 @@ export const handler = async (event: any = {}): Promise<any> => {
     if (status === "SEASON OVER") {
       return successResponse("The season is over :(");
     }
+    console.log("It's week " + currentWeek + " and the status is " + status);
 
     if (isCallback(event)) {
       console.log(`Callback called for message: "${JSON.parse(event.body).text}"`);
@@ -47,6 +48,7 @@ const sendInjuryReport = async (seasonId: number, currentWeek: number) => {
     await sendGroupmeMsg(report);
     return successResponse("Sent injury report");
   }
+  await sendGroupmeMsg("No injuries to report");
   return successResponse("Injury report was blank");
 };
 
