@@ -4,7 +4,8 @@ const leagueId = process.env.FF_LEAGUE_ID;
 
 // Returns the current year (seasonId) and week (scoring period)
 const getCurrentWeek = async () => {
-  const URL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mScoreboard`;
+  const year = new Date().getFullYear().toString();
+  const URL = `https://fantasy.espn.com/apis/v3/games/ffl/seasons/${year}/segments/0/leagues/${leagueId}?view=mMatchupScore&view=mScoreboard`;
   try {
     const response = await fetch(URL);
     const data: CurrentWeekResponse = await response.json();

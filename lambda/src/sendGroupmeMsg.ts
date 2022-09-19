@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+
 const sendGroupmeMsg = async (text: string) => {
   const URL = "https://api.groupme.com/v3/bots/post";
   try {
