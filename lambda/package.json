@@ -9,6 +9,6 @@
     "author": "Danny Hines",
     "license": "ISC",
     "dependencies": {
-        "node-fetch": "^2.0.0"
+        "node-fetch": "^2.6.7"
     }
 }
