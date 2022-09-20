@@ -29,7 +29,7 @@ export class FantasyBotStack extends cdk.Stack {
 
     // (10:30 AM CST on Sunday, Monday and Tuesdays)
     const rule = new events.Rule(this, "FantasyCron", {
-      schedule: events.Schedule.cron({ minute: "30", hour: "16", weekDay: "SUN,MON,TUE" }),
+      schedule: events.Schedule.cron({ minute: "30", hour: "16", weekDay: "SUN,TUE" }),
     });
     rule.addTarget(new targets.LambdaFunction(lambdaFn));
 

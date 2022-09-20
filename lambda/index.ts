@@ -44,11 +44,12 @@ export const handler = async (event: any = {}): Promise<any> => {
 const sendInjuryReport = async (seasonId: number, currentWeek: number) => {
   const boxscore = await getBoxscores(seasonId, currentWeek);
   const report = playersProjectedZero(boxscore);
+
   if (report != "") {
     await sendGroupmeMsg(report);
     return successResponse("Sent injury report");
   }
-  await sendGroupmeMsg("No injuries to report");
+  // await sendGroupmeMsg("No injuries to report");
   return successResponse("Injury report was blank");
 };
 

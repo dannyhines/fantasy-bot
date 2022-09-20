@@ -12,9 +12,9 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "invoke": "sam local invoke -t ./cdk.out/FantasyBotStack.template.json FantasyBot",
-    "injury-report": "sam local invoke -e test/injury-report-event.json -t ./cdk.out/FantasyBotStack.template.json FantasyBot",
-    "update-event": "sam local invoke -e test/update-event.json -t ./cdk.out/FantasyBotStack.template.json FantasyBot"
+    "invoke": "tsc && cdk synth --no-staging && sam local invoke -t ./cdk.out/FantasyBotStack.template.json FantasyBot",
+    "injury-report": "tsc && cdk synth --no-staging && sam local invoke -e test/injury-report-event.json -t ./cdk.out/FantasyBotStack.template.json FantasyBot",
+    "update-event": "tsc && cdk synth --no-staging && sam local invoke -e test/update-event.json -t ./cdk.out/FantasyBotStack.template.json FantasyBot"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.100.0",
